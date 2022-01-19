@@ -73,7 +73,7 @@ public class FP04CustomClass {
                 new Course("Docker", "Cloud", 92, 20000),
                 new Course("Kubernetes", "Cloud", 91, 20000));
 
-        Predicate<Course> reviewScoreGreaterThan95Predicate = course -> course.getReviewScore() > 95;
+        Predicate<Course> reviewScoreGreaterThan95Predicate = createPredicateCutOffReviewScore(95);
         Predicate<Course> reviewScoreGreaterThan90Predicate = course -> course.getReviewScore() > 90;
         Predicate<Course> reviewScoreLessThan90Predicate = course -> course.getReviewScore() < 90;
 
@@ -246,5 +246,13 @@ public class FP04CustomClass {
                         .collect(Collectors.groupingBy(Course::getCategory,
                                 Collectors.mapping(Course::getName, Collectors.toList())))
         );
+
+        Predicate<Course> reviewScoreGreaterThan95Predicate2 = createPredicateCutOffReviewScore(95);
+        Predicate<Course> reviewScoreGreaterThan90Predicate2 = createPredicateCutOffReviewScore(90);
+
+    }
+
+    private static Predicate<Course> createPredicateCutOffReviewScore(int cutOffReviewScore) {
+        return course -> course.getReviewScore() > cutOffReviewScore;
     }
 }
